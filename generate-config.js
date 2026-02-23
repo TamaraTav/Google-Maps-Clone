@@ -35,7 +35,8 @@ if (!token) {
   process.exit(1)
 }
 
-const output = `window.MAPBOX_ACCESS_TOKEN = "${token}";\n`
+const escaped = token.replace(/\\/g, "\\\\").replace(/"/g, '\\"')
+const output = `window.MAPBOX_ACCESS_TOKEN = "${escaped}";\n`
 
 const outputPath = path.join(__dirname, "env.config.js")
 fs.writeFileSync(outputPath, output, "utf-8")

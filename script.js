@@ -1,5 +1,9 @@
+if (!window.MAPBOX_ACCESS_TOKEN) {
+  document.body.innerHTML =
+    "<p style='padding:2rem;font-family:sans-serif;'>Run <code>node generate-config.js</code> and add your token to <code>.env</code>. Then refresh.</p>"
+  throw new Error("MAPBOX_ACCESS_TOKEN is missing. Generate env.config.js from .env first.")
+}
 mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN
-
 
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
   enableHighAccuracy: true
@@ -24,7 +28,7 @@ function setupMap(center) {
   const nav = new mapboxgl.NavigationControl()
   map.addControl(nav)
 
-  var directions = new MapboxDirections({
+  const directions = new MapboxDirections({
     accessToken: mapboxgl.accessToken
   })
 
